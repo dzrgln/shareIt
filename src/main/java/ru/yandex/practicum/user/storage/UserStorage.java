@@ -16,4 +16,6 @@ public interface UserStorage {
     User update (int id, UserDto userDto);
 
     void delete (int id);
+
+    boolean isUser(int id);
 }

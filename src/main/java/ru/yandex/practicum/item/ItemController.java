@@ -25,22 +25,26 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public Item getUserById(@PathVariable("itemId") int itemId, @RequestHeader("X-Sharer-User-Id") int userId){
+    public ItemDtoResponse getUserById(@PathVariable("itemId") int itemId, @RequestHeader("X-Sharer-User-Id") int userId) {
         return itemStorage.getItemById(itemId, userId).get();
     }
 
     @PostMapping
-    public Item create(@Valid @RequestBody ItemDto itemDto, @RequestHeader("X-Sharer-User-Id") int userId) {
-        log.info("Создан объект '{}'", itemDto);
-        return itemStorage.create(userId, itemDto);
+    public Item create(@Valid @RequestBody Item item, @RequestHeader("X-Sharer-User-Id") int userId) {
+        log.info("Создан объект '{}'", item);
+        return itemStorage.create(userId, item);
     }
 
     @PatchMapping("/{itemId}")
     public Item update(@RequestHeader("X-Sharer-User-Id") int userId, @PathVariable("itemId") int itemId
-            , @Validated @RequestBody ItemDto itemDto) {
-
+            , @Validated @RequestBody ItemDtoRequest itemDto) {
         log.info("Обновлен объект '{}'", itemDto);
         return itemStorage.update(userId, itemId, itemDto);
     }
 
+    @GetMapping("/search")
+    public List<ItemDtoResponse> foundedItems(@RequestParam String text) {
+        log.info("Поиск объектов, содержащих слово '{}'", text);
+        return itemStorage.searchItems(text.toLowerCase());
+    }
 }

@@ -1,30 +1,33 @@
 package ru.yandex.practicum.item;
 
 public class ItemMapper {
-    public static ItemDto toItemDto(Item item) {
-        return new ItemDto(
+    public static ItemDtoResponse toItemResponseDto(Item item) {
+        return new ItemDtoResponse(
+                item.getId(),
                 item.getName(),
                 item.getDescription(),
-                String.valueOf(item.isAvailable()),
+                item.isAvailable(),
                 item.getRequest() != null ? item.getRequest() : null
         );
     }
 
-    public static Item updateItem(ItemDto itemDto, Item item) {
+    public static Item updateItem(ItemDtoRequest itemDto, Item item) {
         return new Item(
                 item.getId(),
                 itemDto.getName() != null ? itemDto.getName() : item.getName(),
                 itemDto.getDescription() != null ? itemDto.getDescription() : item.getDescription(),
+                null,
                 itemDto.getAvailable() != null ? Boolean.parseBoolean(itemDto.getAvailable()) : item.isAvailable(),
                 itemDto.getRequest() != null ? itemDto.getRequest() : item.getRequest()
         );
     }
 
-    public static Item toItem (ItemDto itemDto){
+    public static Item toItem(ItemDtoRequest itemDto) {
         return new Item(
                 0,
                 itemDto.getName(),
                 itemDto.getDescription(),
+                null,
                 Boolean.parseBoolean(itemDto.getAvailable()),
                 itemDto.getRequest()
         );

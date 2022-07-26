@@ -77,4 +77,8 @@ public class InMemoryUserStorage implements UserStorage {
                     String.format("Пользователя с указанным email существует \"%s\"не существует.", id));
         }
     }
+
+    public boolean isUser(int id){
+        return users.containsKey(id);
+    }
 }
