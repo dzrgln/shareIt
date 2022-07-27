@@ -48,9 +48,9 @@ public class InMemoryItemStorage implements ItemStorage {
 
     @Override
     public Item create(int userid, Item item) {
-        if (userid == 0) {
-            throw new ValidationException("Необходимо ввести непустой id");
-        }
+//        if (userid == 0) {
+//            throw new ValidationException("Необходимо ввести непустой id");
+//        }
         if (!userStorage.isUser(userid)){
             throw new ObjectNotFoundException("Такаого пользователя не сущестует");
         }
@@ -89,7 +89,7 @@ public class InMemoryItemStorage implements ItemStorage {
                     items.remove(itemId);
                     items.put(itemId, item);
                 } else {
-                    throw new ValidationException(String.format("Пользователь с id \"%s\"не владелец вещи.", userId));
+                    throw new ObjectNotFoundException(String.format("Пользователь с id \"%s\"не владелец вещи.", userId));
                 }
             } else {
                 throw new ValidationException(String.format("Пользователь с id \"%s\"не существует.", userId));

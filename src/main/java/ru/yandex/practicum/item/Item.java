@@ -1,6 +1,7 @@
 package ru.yandex.practicum.item;
 
 import lombok.*;
+import ru.yandex.practicum.exceptions.ErrorHandler;
 import ru.yandex.practicum.request.ItemRequest;
 import ru.yandex.practicum.user.User;
 
@@ -19,7 +20,7 @@ public class Item {
     @NotNull
     @NotBlank
     private String name;
-    @NotNull
+    @NotNull()
     private String description;
     private User owner;
     @NotNull

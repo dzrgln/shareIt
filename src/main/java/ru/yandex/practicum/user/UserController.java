@@ -30,8 +30,9 @@ public class UserController {
 
     @PostMapping
     public User create(@Validated @RequestBody User user) {
-        log.info("Создан объект '{}'", user);
-        return userStorage.create(user);
+        User newUser = userStorage.create(user);
+        log.info("Создан объект '{}'", newUser);
+        return newUser;
     }
 
     @PatchMapping("/{userId}")
